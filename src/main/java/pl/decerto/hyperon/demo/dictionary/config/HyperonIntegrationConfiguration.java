@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import pl.decerto.hyperon.runtime.core.HyperonEngine;
 import pl.decerto.hyperon.runtime.core.HyperonEngineFactory;
 import pl.decerto.hyperon.runtime.sql.DialectRegistry;
-import pl.decerto.hyperon.runtime.sql.DialectTemplate;
 
 import javax.sql.DataSource;
 
@@ -17,28 +16,32 @@ import javax.sql.DataSource;
 public class HyperonIntegrationConfiguration {
 
 	@Bean
-	public HyperonEngine getHyperonEngine(HyperonEngineFactory hyperonEngineFactory) {
-		return hyperonEngineFactory.create();
+	public HyperonEngine getHyperonEngine(HyperonEngineFactory engineFactory) {
+		return engineFactory.create();
 	}
 
-	@Bean
+	/*
+	Exposing HyperonEngineFactory as a Bean allows Spring to call its destroy method to shut it down gracefully
+	*/
+	@Bean(destroyMethod = "destroy")
 	public HyperonEngineFactory getHyperonEngineFactory(
 			DataSource dataSource,
 			@Value("${hyperon.dev.mode:false}") boolean devMode,
 			@Value("${hyperon.dev.user:}") String devUser) {
 
-		var hyperonEngineFactory = new HyperonEngineFactory(dataSource);
+		var engineFactory = new HyperonEngineFactory(dataSource);
 
 		if (devMode) {
-			hyperonEngineFactory.setDeveloperMode(true);
-			hyperonEngineFactory.setUsername(devUser);
+			engineFactory.setDeveloperMode(true);
+			engineFactory.setUsername(devUser);
 		}
-		return new HyperonEngineFactory(dataSource);
+
+		return engineFactory;
 	}
 
 	@Bean(destroyMethod = "close")
 	public HikariDataSource getDataSource(
-			DialectTemplate dialectTemplate,
+			@Value("${hyperon.database.dialect}") String dialect,
 			@Value("${hyperon.database.username}") String username,
 			@Value("${hyperon.database.password}") String password,
 			@Value("${hyperon.database.url}") String jdbcUrl) {
@@ -47,20 +50,25 @@ public class HyperonIntegrationConfiguration {
 		dataSource.setUsername(username);
 		dataSource.setPassword(password);
 		dataSource.setJdbcUrl(jdbcUrl);
-		dataSource.setDriverClassName(dialectTemplate.getJdbcDriverClassName());
+
+		configureHyperonDialect(dialect);
+		var driverClassName = getDriverClassNameForConfiguredDialect();
+		dataSource.setDriverClassName(driverClassName);
+
 		return dataSource;
 	}
 
-	@Bean
-	public DialectTemplate getDialectTemplate(DialectRegistry dialectRegistry) {
-		return dialectRegistry.create();
+	private void configureHyperonDialect(String dialect) {
+		DialectRegistry.set(dialect);
 	}
 
-	@Bean
-	public DialectRegistry getDialectRegistry(@Value("${hyperon.database.dialect}") String dialect) {
-		var registry = new DialectRegistry();
-		registry.setDialect(dialect);
-		return registry;
+	private String getDriverClassNameForConfiguredDialect() {
+		/*
+		Get default driver class name corresponding to previously setup database dialect.
+		It is not necessary to obtain the driver class name this way, but this method guarantees
+		that the selected driver will be compatible with Hyperon.
+		 */
+		return DialectRegistry.getDialectTemplate().getJdbcDriverClassName();
 	}
 
 }

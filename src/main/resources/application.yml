@@ -1,6 +1,6 @@
 hyperon:
   database:
-    url: jdbc:h2:./db/hyperon.demo.dictionary;AUTO_SERVER=TRUE;MVCC=TRUE;IFEXISTS=TRUE
+    url: jdbc:h2:./db/hyperon.demo.dictionary;AUTO_SERVER=TRUE;MVCC=TRUE;TRACE_LEVEL_FILE=FALSE;IFEXISTS=TRUE
     username: sa
     password: sa
     dialect: h2
