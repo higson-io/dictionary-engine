@@ -8,7 +8,7 @@ import pl.decerto.hyperon.runtime.core.HyperonEngine;
 @Service
 public class GreetingService {
 
-	private static final String HYPERON_GREETING_FUNCTION = "helloworld";
+	private static final String HYPERON_GREETING_FUNCTION = "greeting";
 
 	private final HyperonEngine hyperonEngine;
 
