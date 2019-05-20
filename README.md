@@ -10,26 +10,28 @@ Make sure you have at least:
 
 #### Java 11
 
-#### Gradle 4.10.2
+#### Gradle 5.4.1
 
 To install gradle go to:
 
 https://gradle.org/releases/
 
-Previous Gradle versions might work as well but this was not verified.
+Previous Gradle versions may also work but this was not verified.
 
 #### Hyperon Studio 1.6.50
 
 1. Go to:
 
-http://hyperon.io/download
+    http://hyperon.io/download
 
-2. Download bundle, unpack it to the directory of your choice and run it as described 
-[here](http://hyperon.io/tutorials/deploying-hyperon-studio).
+2. Download bundle, extract it to directory of your choice and configure 
+Hyperon Studio so that it uses the same database as this application 
+(see [Setup](#setup) below). Run Hyperon Studio as described 
+[here](http://hyperon.io/tutorials/deploying-hyperon-studio).  
 
 ## Setup
 
-Make sure that the command ```gradle``` is accessible through system path. If not, add it.
+Make sure that the command ```gradle``` is accessible through system path.
 
 This sample is using a H2 Hyperon database. 
 Property ```hyperon.database.url``` defined in file ```/src/main/resources/application.yml``` 
@@ -39,8 +41,14 @@ points by default to h2 database file located in directory ```/db``` within this
 
 Before running the application make sure that system Path variable points to java version 11.
 
-Execute below gradle command to run Spring Boot.
+Execute below gradle command to run Spring Boot:
 
+Windows:
+   ```text
+   gradlew build && java -jar build/libs/dictionary-engine-0.1-SNAPSHOT.jar
+   ```
+
+Unix:
 ```text
 ./gradlew build && java -jar build/libs/dictionary-engine-0.1-SNAPSHOT.jar
 ```
