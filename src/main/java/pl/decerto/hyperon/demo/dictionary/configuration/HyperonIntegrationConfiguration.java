@@ -1,4 +1,4 @@
-package pl.decerto.hyperon.demo.dictionary.config;
+package pl.decerto.hyperon.demo.dictionary.configuration;
 
 import com.zaxxer.hikari.HikariDataSource;
 
