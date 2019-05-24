@@ -24,12 +24,12 @@ class DictionaryServiceImpl implements DictionaryService {
 
 	@Override
 	public Dictionary getDictionaryByCode(String dictionaryCode) {
-		return getDictionary(dictionaryCode).getDictionary();
+		return getDictionaryDom(dictionaryCode).getDictionary();
 	}
 
 	@Override
 	public Dictionary getDictionaryLevel(String dictionaryCode, String level) {
-		return getDictionary(dictionaryCode).getDictionary(level);
+		return getDictionaryDom(dictionaryCode).getDictionary(level);
 	}
 
 	@Override
@@ -44,7 +44,7 @@ class DictionaryServiceImpl implements DictionaryService {
 
 	@Override
 	public Set<String> getDictionaryLevels(String dictionaryCode) {
-		return getDictionary(dictionaryCode).getDictionaryLevels();
+		return getDictionaryDom(dictionaryCode).getDictionaryLevels();
 	}
 
 	@Override
@@ -54,15 +54,15 @@ class DictionaryServiceImpl implements DictionaryService {
 
 	@Override
 	public ContextAwareDictionaryEntry getDictionaryEntryForContext(String dictionaryCode, InputLevelContext ctx) {
-		return getContextDictionary(dictionaryCode, ctx)
+		return getContextDictionaryDom(dictionaryCode, ctx)
 				.getDictionaryEntry();
 	}
 
-	private ContextDictionaryDom getContextDictionary(String dictionaryCode, InputLevelContext ctx) {
+	private ContextDictionaryDom getContextDictionaryDom(String dictionaryCode, InputLevelContext ctx) {
 		return dictionariesDomRoot.contextDictionaryDom(dictionaryCode, ctx);
 	}
 
-	private DictionaryDom getDictionary(String dictionaryCode) {
+	private DictionaryDom getDictionaryDom(String dictionaryCode) {
 		return dictionariesDomRoot.dictionaryDom(dictionaryCode);
 	}
 }

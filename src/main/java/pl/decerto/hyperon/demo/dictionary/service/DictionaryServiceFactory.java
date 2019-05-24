@@ -3,6 +3,7 @@ package pl.decerto.hyperon.demo.dictionary.service;
 import java.util.HashSet;
 import java.util.Set;
 import javax.sql.DataSource;
+
 import pl.decerto.hyperon.runtime.core.HyperonEngine;
 import pl.decerto.hyperon.runtime.core.HyperonEngineFactory;
 import pl.decerto.hyperon.runtime.sync.BaseWatcher;
@@ -34,17 +35,18 @@ public class DictionaryServiceFactory {
 		HyperonEngine hyperonEngine = factory.create();
 		startWatchers();
 
-		HyperonEngineWrapper eagentEngine = new HyperonEngineWrapper(hyperonEngine, DICTIONARIES_PROFILE_NAME);
-		DictionariesDomRoot dictionariesDomRoot = new DictionariesDomRootImpl(eagentEngine);
+		HyperonEngineWrapper engineWrapper = new HyperonEngineWrapper(hyperonEngine, DICTIONARIES_PROFILE_NAME);
+		DictionariesDomRoot dictionariesDomRoot = new DictionariesDomRootImpl(engineWrapper);
 		return new DictionaryServiceImpl(dictionariesDomRoot);
 	}
 
 	private HyperonEngineFactory createHyperonEngineFactory(DataSource hyperonDataSource) {
-		HyperonEngineFactory factory = new HyperonEngineFactory();
-		factory.setDataSource(hyperonDataSource);
-		factory.setEnableDomainCache(true);
+		var engineFactory = new HyperonEngineFactory();
+		engineFactory.setDataSource(hyperonDataSource);
+		engineFactory.setAutoStartWatchers(false);
+		engineFactory.setEnableDomainCache(true);
 
-		return factory;
+		return engineFactory;
 	}
 
 	public void destroy() {

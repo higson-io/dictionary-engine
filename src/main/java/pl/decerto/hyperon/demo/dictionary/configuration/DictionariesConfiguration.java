@@ -1,42 +1,26 @@
 package pl.decerto.hyperon.demo.dictionary.configuration;
 
 import com.zaxxer.hikari.HikariDataSource;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import pl.decerto.hyperon.runtime.core.HyperonEngine;
-import pl.decerto.hyperon.runtime.core.HyperonEngineFactory;
+import pl.decerto.hyperon.demo.dictionary.service.DictionaryService;
+import pl.decerto.hyperon.demo.dictionary.service.DictionaryServiceFactory;
 import pl.decerto.hyperon.runtime.sql.DialectRegistry;
 
 import javax.sql.DataSource;
 
 @Configuration
-public class HyperonIntegrationConfiguration {
+public class DictionariesConfiguration {
 
 	@Bean
-	public HyperonEngine getHyperonEngine(HyperonEngineFactory engineFactory) {
-		return engineFactory.create();
+	public DictionaryService getDictionaryService(DictionaryServiceFactory dictionaryServiceFactory) {
+		return dictionaryServiceFactory.create();
 	}
 
-	/*
-	Exposing HyperonEngineFactory as a Bean allows Spring to call its destroy method to shut it down gracefully
-	*/
 	@Bean(destroyMethod = "destroy")
-	public HyperonEngineFactory getHyperonEngineFactory(
-			DataSource dataSource,
-			@Value("${hyperon.dev.mode:false}") boolean devMode,
-			@Value("${hyperon.dev.user:}") String devUser) {
-
-		var engineFactory = new HyperonEngineFactory(dataSource);
-
-		if (devMode) {
-			engineFactory.setDeveloperMode(true);
-			engineFactory.setUsername(devUser);
-		}
-
-		return engineFactory;
+	public DictionaryServiceFactory getDictionaryServiceFactory(DataSource dataSource) {
+		return new DictionaryServiceFactory(dataSource);
 	}
 
 	@Bean(destroyMethod = "close")
@@ -70,5 +54,4 @@ public class HyperonIntegrationConfiguration {
 		 */
 		return DialectRegistry.getDialectTemplate().getJdbcDriverClassName();
 	}
-
 }

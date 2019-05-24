@@ -10,6 +10,10 @@ group = 'pl.decerto'
 version = '0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
+springBoot {
+    buildInfo()
+}
+
 repositories {
     mavenCentral()
 }
@@ -19,7 +23,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web-services'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'com.h2database:h2:1.4.196'
-    implementation 'pl.decerto:hyperon-runtime:1.6.49'
+    implementation 'io.springfox:springfox-swagger2:2.9.2'
+    implementation 'io.springfox:springfox-swagger-ui:2.9.2'
+    implementation 'pl.decerto:hyperon-runtime:1.6.50'
     
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

@@ -53,8 +53,9 @@ Unix:
 ./gradlew build && java -jar build/libs/dictionary-engine-0.1-SNAPSHOT.jar
 ```
 
-Application will be accessible on port 8082 
-(URL: [http://localhost:8082/greeting](http://localhost:8082/greeting)). 
+Application will be accessible on port 8082. 
 If you need to use different port, change the value of property  ```server.port``` 
-in file ```application.yml```.
+in file ```application.yml```. You can explore the REST api from your browser 
+([http://localhost:8082/swagger-ui.html](http://localhost:8082/swagger-ui.html)) or
+via direct HTTP requests.
 
