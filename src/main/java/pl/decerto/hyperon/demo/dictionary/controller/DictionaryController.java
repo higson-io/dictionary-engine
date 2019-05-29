@@ -1,5 +1,8 @@
 package pl.decerto.hyperon.demo.dictionary.controller;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static pl.decerto.hyperon.demo.dictionary.controller.ControllerResponseFactory.response;
+
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +15,9 @@ import pl.decerto.hyperon.demo.dictionary.service.DictionaryService;
 import java.util.List;
 import java.util.Set;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static pl.decerto.hyperon.demo.dictionary.controller.ControllerResponseFactory.response;
-
 @RestController
 @RequestMapping("/dictionaries")
 public class DictionaryController {
-
 
 	static final String ONLY_FOR_KEY_DICT_NOTE = "Works only for dictionaries accessible by key. " +
 			"Produces error result for dictionaries accessible only by context.";
@@ -39,7 +38,7 @@ public class DictionaryController {
 		return response(dictionaryService.getAllDictionariesCodes());
 	}
 
-	@GetMapping(value = "/bycode", produces = APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/by-code", produces = APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Get data from selected dictionary", notes = ONLY_FOR_KEY_DICT_NOTE)
 	public ResponseEntity<ControllerResponseDto<DictionaryDto>> getDictionary(
 			@RequestParam @ApiParam(DICT_CODE_DESC) String dictionary) {
@@ -48,7 +47,7 @@ public class DictionaryController {
 		return response(new DictionaryDto(dict));
 	}
 
-	@GetMapping(value = "/bycode/bylevel", produces = APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/by-code/by-level", produces = APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Get single-value dictionary constructed from multi-value dictionary by " +
 			"restricting output to specified output level",
 		notes = ONLY_FOR_KEY_DICT_NOTE)
@@ -60,7 +59,7 @@ public class DictionaryController {
 		return response(new DictionaryDto(dict));
 	}
 
-	@GetMapping(value = "/bycode/levels", produces = APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/by-code/levels", produces = APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Get list of all output levels for specified dictionary",
 			notes = ONLY_FOR_KEY_DICT_NOTE)
 	public ResponseEntity<ControllerResponseDto<Set<String>>> getDictionaryLevels(

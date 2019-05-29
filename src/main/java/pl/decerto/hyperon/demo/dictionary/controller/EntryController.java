@@ -1,5 +1,11 @@
 package pl.decerto.hyperon.demo.dictionary.controller;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static pl.decerto.hyperon.demo.dictionary.controller.DictionaryController.DICT_CODE_DESC;
+import static pl.decerto.hyperon.demo.dictionary.controller.DictionaryController.LEVEL_CODE_DESC;
+import static pl.decerto.hyperon.demo.dictionary.controller.DictionaryController.ONLY_FOR_KEY_DICT_NOTE;
+import static pl.decerto.hyperon.demo.dictionary.controller.ControllerResponseFactory.response;
+
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +20,6 @@ import pl.decerto.hyperon.demo.dictionary.dto.DictionaryEntryDto;
 import pl.decerto.hyperon.demo.dictionary.service.DictionaryService;
 
 import java.util.Map;
-
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static pl.decerto.hyperon.demo.dictionary.controller.ControllerResponseFactory.response;
-import static pl.decerto.hyperon.demo.dictionary.controller.DictionaryController.*;
 
 @RestController
 @RequestMapping("/entries")
@@ -36,7 +38,7 @@ public class EntryController {
 		this.dictionaryService = dictionaryService;
 	}
 
-	@GetMapping(value = "/bykey", produces = APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/by-key", produces = APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Get entry from dictionary accessible by key", notes = ONLY_FOR_KEY_DICT_NOTE +
 			" For multi-value dictionaries returns entry associated with first data column." +
 			" Additional columns are ignored.")
@@ -51,7 +53,7 @@ public class EntryController {
 		return response(entryDto, String.format(ENTRY_NOT_FOUND_MESSAGE, key, dictionary));
 	}
 
-	@GetMapping(value = "/bykey/bylevel", produces = APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/by-key/by-level", produces = APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Get entry for specified column (=level) from dictionary accessible by key.",
 			notes = ONLY_FOR_KEY_DICT_NOTE + " Returns entry associated with data column specified by level code." +
 					" The key for the returned entry is the level code.")
@@ -67,7 +69,7 @@ public class EntryController {
 		return response(entryDto, String.format(LEVEL_ENTRY_NOT_FOUND_MESSAGE, key, level, dictionary));
 	}
 
-	@PostMapping(value = "/bycontext", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/by-context", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Get entry from dictionary accessible by context", notes = "Resulting entry will contain " +
 			"collection of available output levels and entries for each level.")
 	public ResponseEntity<ControllerResponseDto<ContextAwareDictionaryEntryDto>> getContextAwareDictionaryEntry(
@@ -78,7 +80,7 @@ public class EntryController {
 		return response(new ContextAwareDictionaryEntryDto(entry));
 	}
 
-	@PostMapping(value = "/bycontext/bylevel", produces = APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/by-context/by-level", produces = APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Get value from dictionary accessible by context for specified data column (= output level)")
 	public ResponseEntity<ControllerResponseDto<ContextAwareEntryValueDto>> getContextAwareDictionaryEntryValue(
 			@RequestParam @ApiParam(DICT_CODE_DESC) String dictionary,

@@ -1,12 +1,12 @@
 hyperon:
   database:
-    url: jdbc:h2:./db/hyperon.demo.dictionary;AUTO_SERVER=TRUE;MVCC=TRUE;TRACE_LEVEL_FILE=0;IFEXISTS=TRUE
-    username: sa
-    password: sa
-    dialect: h2
+    url: "jdbc:h2:./db/hyperon.demo.dictionary;AUTO_SERVER=TRUE;MVCC=TRUE;TRACE_LEVEL_FILE=0;IFEXISTS=TRUE"
+    username: "sa"
+    password: "sa"
+    dialect: "h2"
   dev:
     mode: false # indicates whether to take into account unpublished session
-    user: admin # user whose session will be taken into account if dev.mode is set to true
+    user: "admin" # user whose session will be taken into account if dev.mode is set to true
 
 server.port: 8082
 spring.jackson.default-property-inclusion: NON_NULL

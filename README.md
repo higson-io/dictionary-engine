@@ -55,7 +55,16 @@ Unix:
 
 Application will be accessible on port 8082. 
 If you need to use different port, change the value of property  ```server.port``` 
-in file ```application.yml```. You can explore the REST api from your browser 
-([http://localhost:8082/swagger-ui.html](http://localhost:8082/swagger-ui.html)) or
-via direct HTTP requests.
+in file ```application.yml```. 
+
+### REST api
+
+When the application is running, documentation of REST api is available at  
+[http://localhost:8082/swagger-ui.html](http://localhost:8082/swagger-ui.html).
+
+### SOAP endpoint
+
+The WSDL definition of SOAP endpoint is available at 
+[http://localhost:8082/ws/dictionaries.wsdl](http://localhost:8082/ws/dictionaries.wsdl). 
+Available SOAP requests correspond to appropriate REST endpoints and provide the same functionality.  
 
