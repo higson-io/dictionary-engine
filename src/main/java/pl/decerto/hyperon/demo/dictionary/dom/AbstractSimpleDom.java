@@ -8,9 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import org.smartparam.engine.core.output.MultiValue;
 import org.smartparam.engine.core.output.ParamValue;
-import org.smartparam.engine.core.type.ValueHolder;
 import pl.decerto.hyperon.runtime.core.AdhocContext;
-import pl.decerto.hyperon.runtime.core.EmptyParamValue;
 import pl.decerto.hyperon.runtime.core.HyperonContext;
 import pl.decerto.hyperon.runtime.helper.TypeConverter;
 import pl.decerto.hyperon.runtime.model.HyperonDomainObject;
@@ -22,9 +20,9 @@ import pl.decerto.hyperon.runtime.model.HyperonDomainObject;
  */
 abstract class AbstractSimpleDom<T extends AbstractSimpleDom> {
 
-	private static final String CODE = "code";
-
 	private static final String DOMAIN = "domain";
+
+	private static final String CODE = "code";
 
 	private static final String NAME = "name";
 
@@ -35,8 +33,6 @@ abstract class AbstractSimpleDom<T extends AbstractSimpleDom> {
 	private static final String PATH_DOMAIN_TYPE = DOMAIN + "." + TYPE;
 
 	private static final String PATH_DOMAIN_NAME = DOMAIN + "." + NAME;
-
-	private static final ParamValue EMPTY_PARAM_VALUE = new EmptyParamValue();
 
 	private static final TypeConverter typeConverter = new TypeConverter();
 
@@ -50,11 +46,11 @@ abstract class AbstractSimpleDom<T extends AbstractSimpleDom> {
 	}
 
 	protected HyperonContext defaultCtx(HyperonContext parent) {
-		HyperonContext ctx = parent != null ? new AdhocContext(parent) : new AdhocContext();
+		var context = parent != null ? new AdhocContext(parent) : new AdhocContext();
 
-		setStandardFields(ctx);
+		setStandardFields(context);
 
-		return ctx;
+		return context;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -109,8 +105,11 @@ abstract class AbstractSimpleDom<T extends AbstractSimpleDom> {
 	}
 
 	protected ParamValue getAttrValue(String code) {
-		ParamValue pv = domObj.getAttributeValue(null, code, ctx);
-		return pv != null ? pv : EMPTY_PARAM_VALUE;
+		var attr = domObj.getAttribute(null, code);
+		if (attr == null) {
+			throw AttributeNotFoundException.wrongCode(domObj.getPath(), code);
+		}
+		return attr.getValue(ctx);
 	}
 
 	protected String getAttrString(String code) {
@@ -152,17 +151,17 @@ abstract class AbstractSimpleDom<T extends AbstractSimpleDom> {
 	private <T> List<T> getAttrList(String code, Function<MultiValue, T> valueConverter) {
 		ParamValue pv = getAttrValue(code);
 		return StreamSupport.stream(pv.spliterator(), false)
-				.map(valueConverter::apply)
+				.map(valueConverter)
 				.collect(Collectors.toList());
 	}
 
 	private Object holder(String attrCode) {
-		ValueHolder holder = getAttrValue(attrCode).getHolder();
+		var holder = getAttrValue(attrCode).getHolder();
 		return holder != null ? holder.getValue() : null;
 	}
 
 	private Object holder(MultiValue mv) {
-		ValueHolder holder = mv.getHolder(0);
+		var holder = mv.getHolder(0);
 		return holder != null ? holder.getValue() : null;
 	}
 

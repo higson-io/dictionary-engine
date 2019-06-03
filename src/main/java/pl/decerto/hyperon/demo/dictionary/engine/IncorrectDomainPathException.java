@@ -3,7 +3,7 @@ package pl.decerto.hyperon.demo.dictionary.engine;
 /**
  * Exception thrown on incorrect configuration of path used for querying hyperon's domain
  */
-class IncorrectDomainPathException extends RuntimeException {
+public class IncorrectDomainPathException extends RuntimeException {
 
 	private static final String MESSAGE = "Unable to find domain object for path : %s in profile : %s";
 

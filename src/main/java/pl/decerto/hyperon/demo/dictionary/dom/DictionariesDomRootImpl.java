@@ -6,16 +6,16 @@ import pl.decerto.hyperon.demo.dictionary.dict.InputLevelContext;
 import pl.decerto.hyperon.demo.dictionary.engine.HyperonEngineWrapper;
 
 /**
- * Klasa reprezentująca domene słowników
+ * Class representing domain of dictionaries
  */
 public class DictionariesDomRootImpl implements DictionariesDomRoot {
 
 	private static final SimpleConverter<HyperonDomainObject, String> MP_DOMAIN_OBJECT_TO_CODE_CONVERTER = HyperonDomainObject::getCode;
 
-	private final HyperonEngineWrapper eagentEngine;
+	private final HyperonEngineWrapper engineWrapper;
 
-	public DictionariesDomRootImpl(HyperonEngineWrapper eagentEngine) {
-		this.eagentEngine = eagentEngine;
+	public DictionariesDomRootImpl(HyperonEngineWrapper engineWrapper) {
+		this.engineWrapper = engineWrapper;
 	}
 
 	@Override
@@ -30,11 +30,11 @@ public class DictionariesDomRootImpl implements DictionariesDomRoot {
 
 	@Override
 	public List<String> dictionariesCodes() {
-		HyperonDomainObject domainObject = eagentEngine.getDomainObj(Domains.ROOT.getPath());
+		HyperonDomainObject domainObject = engineWrapper.getDomainObj(Domains.ROOT.getPath());
 		return MP_DOMAIN_OBJECT_TO_CODE_CONVERTER.convertAll(domainObject.getChildren(Domains.DICTIONARIES.getPath()));
 	}
 
 	private HyperonDomainObject getDictionaryDomain(String dictionaryCode) {
-		return eagentEngine.getDomainObj(Domains.DICTIONARY.getPath(), dictionaryCode);
+		return engineWrapper.getDomainObj(Domains.DICTIONARY.getPath(), dictionaryCode);
 	}
 }

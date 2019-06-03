@@ -53,8 +53,18 @@ Unix:
 ./gradlew build && java -jar build/libs/dictionary-engine-0.1-SNAPSHOT.jar
 ```
 
-Application will be accessible on port 8082 
-(URL: [http://localhost:8082/greeting](http://localhost:8082/greeting)). 
+Application will be accessible on port 8082. 
 If you need to use different port, change the value of property  ```server.port``` 
-in file ```application.yml```.
+in file ```application.yml```. 
+
+### REST api
+
+When the application is running, documentation of REST api is available at  
+[http://localhost:8082/swagger-ui.html](http://localhost:8082/swagger-ui.html).
+
+### SOAP endpoint
+
+The WSDL definition of SOAP endpoint is available at 
+[http://localhost:8082/ws/dictionaries.wsdl](http://localhost:8082/ws/dictionaries.wsdl). 
+Available SOAP requests correspond to appropriate REST endpoints and provide the same functionality.  
 

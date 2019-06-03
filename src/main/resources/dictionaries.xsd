@@ -1,0 +1,156 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://hyperon.io/demos/dictionary-engine"
+           targetNamespace="http://hyperon.io/demos/dictionary-engine" elementFormDefault="qualified">
+
+    <xs:element name="getDictionaryCodesRequest">
+        <xs:complexType>
+            <xs:sequence/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getDictionaryCodesResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="dictionaryCode" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getDictionaryByCodeRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="dictionaryCode" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getDictionaryByCodeAndLevelRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="dictionaryCode" type="xs:string"/>
+                <xs:element name="level" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getDictionaryResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="entries" type="tns:EntriesType"/>
+                <xs:element name="levels" type="tns:LevelsType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getDictionaryLevelsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="dictionaryCode" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getDictionaryLevelsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="level" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getEntryByKeyRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="dictionaryCode" type="xs:string"/>
+                <xs:element name="key" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getEntryByKeyAndLevelRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="dictionaryCode" type="xs:string"/>
+                <xs:element name="key" type="xs:string"/>
+                <xs:element name="level" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getEntryResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="key" type="xs:string"/>
+                <xs:element name="value" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getContextAwareEntryRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="dictionaryCode" type="xs:string"/>
+                <xs:element name="inputLevels" type="tns:LevelValuesType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getContextAwareEntryResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="outputLevels" type="tns:LevelsType"/>
+                <xs:element name="entries" type="tns:EntriesType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getContextAwareEntryValueRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="dictionaryCode" type="xs:string"/>
+                <xs:element name="level" type="xs:string"/>
+                <xs:element name="inputLevels" type="tns:LevelValuesType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getContextAwareEntryValueResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="value" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="EntriesType">
+        <xs:sequence>
+            <xs:element name="entry" type="tns:EntryType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="EntryType">
+        <xs:sequence>
+            <xs:element name="key" type="xs:string"/>
+            <xs:element name="value" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="LevelValuesType">
+        <xs:sequence>
+            <xs:element name="levelValue" type="tns:LevelValueType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="LevelValueType">
+        <xs:sequence>
+            <xs:element name="level" type="xs:string"/>
+            <xs:element name="value" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="LevelsType">
+        <xs:sequence>
+            <xs:element name="level" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
