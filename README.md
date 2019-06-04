@@ -18,7 +18,7 @@ https://gradle.org/releases/
 
 Previous Gradle versions may also work but this was not verified.
 
-#### Hyperon Studio 1.6.50
+#### Hyperon Studio 1.6.51
 
 1. Go to:
 
@@ -33,9 +33,12 @@ Hyperon Studio so that it uses the same database as this application
 
 Make sure that the command ```gradle``` is accessible through system path.
 
-This sample is using a H2 Hyperon database. 
-Property ```hyperon.database.url``` defined in file ```/src/main/resources/application.yml``` 
-points by default to h2 database file located in directory ```/db``` within this project.
+This sample is configured to use data from H2 database file bundled with Hyperon
+Studio. You should edit the property ```hyperon.database.url``` defined in file 
+```/src/main/resources/application.yml``` so that it points to database file included in 
+sub-directory ```database``` of the Hyperon bundle directory. Replacing the string 
+```YOUR_HYPERON_BUNDLE_DIRECTORY``` by path to extracted Hyperon bundle should be 
+sufficient.
 
 ## Running
 
@@ -52,6 +55,9 @@ Unix:
 ```text
 ./gradlew build && java -jar build/libs/dictionary-engine-0.1-SNAPSHOT.jar
 ```
+Users of Intellij IDEA can check the settings option 'Build, Execution, Deployment' > 
+'Build Tools > 'Gradle' > 'Runner' > '**Delegate IDE build/run actions to Gradle**' to allow
+auto-generation of sources when building the project directly from IDE.
 
 Application will be accessible on port 8082. 
 If you need to use different port, change the value of property  ```server.port``` 
