@@ -11,5 +11,7 @@ public interface DictionaryEntry {
 
 	String getValue();
 
+	String getValueByLevel(String level);
+
 	Optional<DictionaryEntry> getSubEntry(String level);
 }

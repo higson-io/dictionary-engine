@@ -27,7 +27,7 @@ class SingleValueDictionaryFactory {
 
 	public static SingleValueDictionary create(List<MultiValue> rows, String level) {
 		List<DictionaryEntry> entries = rows.stream()
-				.map(multiValue -> SingleValueDictionaryEntry.of(multiValue.getString(KEY_POSITION), multiValue.getString(level)))
+				.map(multiValue -> SingleValueDictionaryEntry.of(multiValue.getString(KEY_POSITION), multiValue.getString(level.toUpperCase())))
 				.collect(toList());
 		return SingleValueDictionary.of(entries);
 	}

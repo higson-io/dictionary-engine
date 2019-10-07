@@ -13,7 +13,10 @@ import java.util.stream.Collectors;
 @ApiModel("Entry of context-aware dictionary")
 public class ContextAwareDictionaryEntryDto {
 
-	@ApiModelProperty("codes of available data columns (levels)")
+	@ApiModelProperty(value = "codes of available data columns (levels)",
+		example = "['DESCRIPTION', 'TYPE', 'PRODUCT_CODE']",
+		reference = "Set",
+		required = true)
 	private final Set<String> outputLevels;
 
 	@ApiModelProperty(value = "entries corresponding to data columns (levels)",
