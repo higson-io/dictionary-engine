@@ -10,7 +10,7 @@ services:
     container_name: studio
     image: hyperonio/studio:latest
     environment:
-      - mpp.database.url=jdbc:h2:tcp://db/hyperon.demo;AUTO_SERVER=TRUE;MVCC=TRUE;IFEXISTS=TRUE
+      - mpp.database.url=jdbc:h2:tcp://db/hyperon.demo;AUTO_SERVER=TRUE;IFEXISTS=TRUE
       - mpp.database.dialect=h2
       - mpp.database.username=sa
       - mpp.database.password=sa
@@ -22,7 +22,7 @@ services:
     container_name: demo
     image: hyperonio/dictionary-engine-demo:latest
     environment:
-      - HYPERON_DATABASE_URL=jdbc:h2:tcp://db/hyperon.demo;AUTO_SERVER=TRUE;MVCC=TRUE;IFEXISTS=TRUE
+      - HYPERON_DATABASE_URL=jdbc:h2:tcp://db/hyperon.demo;AUTO_SERVER=TRUE;IFEXISTS=TRUE
     ports:
       - 48080:8082
     depends_on:
