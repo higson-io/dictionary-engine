@@ -22,7 +22,7 @@ Previous Gradle versions may also work but this was not verified.
 
 1. Go to:
 
-    http://hyperon.io/download
+    https://www.hyperon.io/docs/download
 
 2. Download bundle, extract it to directory of your choice and configure 
 Hyperon Studio so that it uses the same database as this application 
