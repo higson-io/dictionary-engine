@@ -2,7 +2,7 @@
 
 This is a sample configuration application to demonstrate capabilities of Hyperon.io library. 
 
-Hyperon.io tutorials are availble [here](https://hyperon.io/tutorials/getting-started).
+Hyperon.io tutorials are available [here](https://www.hyperon.io/docs/tutorials).
 
 ## Prerequisites
 
@@ -27,7 +27,7 @@ Previous Gradle versions may also work but this was not verified.
 2. Download bundle, extract it to directory of your choice and configure 
 Hyperon Studio so that it uses the same database as this application 
 (see [Setup](#setup) below). Run Hyperon Studio as described 
-[here](http://hyperon.io/tutorials/deploying-hyperon-studio).  
+[here](https://www.hyperon.io/tutorial/installing-hyperon-studio).  
 
 ## Setup
 
