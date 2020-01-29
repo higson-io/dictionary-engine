@@ -95,9 +95,10 @@ docker-compose up
 
 ### REST api
 
-When the application is running, documentation of REST api is available at  
+`When application is started with Docker (without any custom port mappings), documentation of REST api is available at:
+[http://localhost:48080/swagger-ui.html](http://localhost:48080/swagger-ui.html).
+Otherwise, when application is build and started with gradle, documentation is available at:
 [http://localhost:8082/swagger-ui.html](http://localhost:8082/swagger-ui.html).
-
 ### SOAP endpoint
 
 The WSDL definition of SOAP endpoint is available at 
