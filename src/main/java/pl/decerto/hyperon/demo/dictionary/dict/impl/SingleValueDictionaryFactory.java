@@ -3,9 +3,12 @@ package pl.decerto.hyperon.demo.dictionary.dict.impl;
 import static java.util.stream.Collectors.toList;
 
 import java.util.List;
+
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+
 import org.smartparam.engine.core.output.MultiValue;
+
 import pl.decerto.hyperon.demo.dictionary.dict.DictionaryEntry;
 import pl.decerto.hyperon.demo.dictionary.dom.SimpleConverter;
 
@@ -21,11 +24,7 @@ class SingleValueDictionaryFactory {
 	static final SimpleConverter<MultiValue, DictionaryEntry> ENTRY_CONVERTER = mv ->
 			SingleValueDictionaryEntry.of(mv.getString(KEY_POSITION), mv.getString(VALUE_POSITION));
 
-	public static SingleValueDictionary create(List<MultiValue> rows) {
-		return SingleValueDictionary.of(ENTRY_CONVERTER.convertAll(rows));
-	}
-
-	public static SingleValueDictionary create(List<MultiValue> rows, String level) {
+	static SingleValueDictionary create(List<MultiValue> rows, String level) {
 		List<DictionaryEntry> entries = rows.stream()
 				.map(multiValue -> SingleValueDictionaryEntry.of(multiValue.getString(KEY_POSITION), multiValue.getString(level.toUpperCase())))
 				.collect(toList());
