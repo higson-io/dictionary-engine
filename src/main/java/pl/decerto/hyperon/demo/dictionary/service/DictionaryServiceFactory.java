@@ -2,15 +2,17 @@ package pl.decerto.hyperon.demo.dictionary.service;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.sql.DataSource;
 
-import pl.decerto.hyperon.runtime.core.HyperonEngine;
-import pl.decerto.hyperon.runtime.core.HyperonEngineFactory;
-import pl.decerto.hyperon.runtime.sync.BaseWatcher;
-import pl.decerto.hyperon.runtime.sync.WatcherConfig;
 import pl.decerto.hyperon.demo.dictionary.dom.DictionariesDomRoot;
 import pl.decerto.hyperon.demo.dictionary.dom.DictionariesDomRootImpl;
 import pl.decerto.hyperon.demo.dictionary.engine.HyperonEngineWrapper;
+import pl.decerto.hyperon.runtime.core.HyperonEngine;
+import pl.decerto.hyperon.runtime.core.HyperonEngineFactory;
+import pl.decerto.hyperon.runtime.sync.BaseWatcher;
+import pl.decerto.hyperon.runtime.sync.DomainWatcherConfig;
+import pl.decerto.hyperon.runtime.sync.WatcherConfig;
 
 /**
  * Configuration class, creating dictionary service
@@ -55,13 +57,24 @@ public class DictionaryServiceFactory {
 	}
 
 	private void startWatchers() {
-		WatcherConfig watcherConf = new WatcherConfig(factory.getWatcherStartDelaySeconds(), factory.getWatcherPauseSeconds(), factory.getWatcherErrorPauseSeconds());
+		WatcherConfig watcherConf = getWatcherConf();
+		DomainWatcherConfig domainWatcherConfig = getDomainWatcherConfig();
 		watchers.add(factory.startParamWatcher(factory.getParamWatcherConfig()));
 		watchers.add(factory.startFunctionWatcher(factory.getFunctionWatcherConfig()));
-		watchers.add(factory.startDomainWatcher(watcherConf));
+		watchers.add(factory.startDomainWatcher(domainWatcherConfig));
 		watchers.add(factory.startVersionWatcher(watcherConf));
 		watchers.add(factory.startScheduleWatcher());
 		watchers.add(factory.startRefreshWatcher(factory.getRefreshWatcherConfig()));
+	}
+
+	private WatcherConfig getWatcherConf() {
+		return new WatcherConfig(factory.getWatcherStartDelaySeconds(), factory.getWatcherPauseSeconds(),
+			factory.getWatcherErrorPauseSeconds());
+	}
+
+	private DomainWatcherConfig getDomainWatcherConfig() {
+		return new DomainWatcherConfig(factory.getWatcherStartDelaySeconds(), factory.getWatcherPauseSeconds(),
+			factory.getWatcherErrorPauseSeconds());
 	}
 
 }
