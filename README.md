@@ -1,8 +1,8 @@
-# Hyperon Dictionary-Engine Demo App
+# Higson Dictionary-Engine Demo App
 
-This is a sample configuration application to demonstrate capabilities of Hyperon.io library. 
+This is a sample configuration application to demonstrate capabilities of Higson.io library. 
 
-Hyperon.io tutorials are available [here](https://www.hyperon.io/docs/tutorials).
+Higson.io tutorials are available [here](https://www.higson.io/docs/start-documentation).
 
 ## Prerequisites
 
@@ -18,26 +18,26 @@ https://gradle.org/releases/
 
 Previous Gradle versions may also work but this was not verified.
 
-#### Hyperon Studio 1.6.51
+#### Higson Studio 1.6.51
 
 1. Go to:
 
-    https://www.hyperon.io/docs/download
+    https://www.higson.io/docs/download
 
 2. Download bundle, extract it to directory of your choice and configure 
-Hyperon Studio so that it uses the same database as this application 
-(see [Setup](#setup) below). Run Hyperon Studio as described 
-[here](https://www.hyperon.io/tutorial/installing-hyperon-studio).  
+Higson Studio so that it uses the same database as this application 
+(see [Setup](#setup) below). Run Higson Studio as described 
+[here](https://www.higson.io/docs/start-documentation).  
 
 ## Setup
 
 Make sure that the command ```gradle``` is accessible through system path.
 
-This sample is configured to use data from H2 database file bundled with Hyperon
+This sample is configured to use data from H2 database file bundled with Higson
 Studio. You should edit the property ```hyperon.database.url``` defined in file 
 ```/src/main/resources/application.yml``` so that it points to database file included in 
-sub-directory ```database``` of the Hyperon bundle directory. Replacing the string 
-```YOUR_HYPERON_BUNDLE_DIRECTORY``` by path to extracted Hyperon bundle should be 
+sub-directory ```database``` of the Higson bundle directory. Replacing the string 
+```YOUR_HYPERON_BUNDLE_DIRECTORY``` by path to extracted Higson bundle should be 
 sufficient.
 
 ## Running
@@ -81,15 +81,15 @@ docker run -p 38080:8082
     -e mpp.database.dialect=<choose>
     -e mpp.database.username=<db_username>
     -e mpp.database.password=<db_password>
-    -e mpp.environment.id=hyperon_docker
+    -e mpp.environment.id=higson_docker
     hyperonio/dictionary-engine-demo
 ```
-OR application can be run with bundle-h2-demo and hyperon-studio images
+OR application can be run with bundle-h2-demo and higson-studio images
 using docker-compose based on docker-compose.yml. Simply run:
 ```text
 docker-compose up
 ```
-* By default Hyperon Studio will be available at: [host]:38080/hyperon/app
+* By default Higson Studio will be available at: [host]:38080/higson/app
 * By default Demo application will be available at: [host]:48080
 
 
